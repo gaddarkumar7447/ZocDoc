@@ -1,16 +1,20 @@
 package com.example.zocdoc.auth
 
+import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.text.LineBreaker.ParagraphConstraints
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import com.example.zocdoc.R
+import com.example.zocdoc.Util
+import com.example.zocdoc.databinding.ActivityForgetPasswordBinding.inflate
 import com.example.zocdoc.databinding.ActivitySignUpFirstBinding
-import com.github.angads25.toggle.interfaces.OnToggledListener
-import com.github.angads25.toggle.model.ToggleableView
+import com.example.zocdoc.databinding.ParagraphModelBinding
 
 class SignUpFirst : AppCompatActivity() {
     private lateinit var dataBinding : ActivitySignUpFirstBinding
@@ -30,6 +34,24 @@ class SignUpFirst : AppCompatActivity() {
             }
 
             Log.d("doc", "Doctor : $isDoctor")
+        }
+
+        dataBinding.infoOfDoctor.setOnClickListener{
+            /*val dialog = ParagraphModelBinding.inflate(layoutInflater)
+            val bottomSheet = Util().createBottomSheet(this)
+            dialog.apply {
+                paragraphHeading.text = "Gaddar"
+                paragraphContent.text = "Gagagag"
+            }
+            val paragraphModelBinding = ParagraphModelBinding.bind(View(this))
+            paragraphModelBinding.root*/
+            val alert = AlertDialog.Builder(this)
+            alert.setTitle("Notices")
+            alert.setIcon(R.drawable.img)
+            alert.setMessage("1. If you are doctor than swipe the button.\n2. If you are patient then no need for swipe")
+            alert.setPositiveButton("Got it", DialogInterface.OnClickListener { dialogInterface, i -> })
+            alert.setCancelable(false)
+            alert.show()
         }
 
         dataBinding.nextButton.setOnClickListener {

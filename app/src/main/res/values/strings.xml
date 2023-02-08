@@ -9,4 +9,10 @@
     <string name="tell_us_about_you">Tell us about you</string>
     <string name="specialization">Specialization</string>
     <string name="enter_your_age">Enter your age</string>
+    <string name="home">Home</string>
+    <string name="statistic">Statistic</string>
+    <string name="appointment">Appointment</string>
+    <string name="setting">Setting</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

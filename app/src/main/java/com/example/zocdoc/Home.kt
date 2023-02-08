@@ -11,6 +11,5 @@ class Home : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         supportActionBar?.hide()
-
     }
 }

@@ -96,7 +96,7 @@ class SignInActivity : AppCompatActivity() {
             val password = dataBinding.SignUpPassword.text.toString().trim()
 
             val specialist = dataBinding.SignUpTypeOfDoctor.text.toString().trim()
-            val phone = Util.removeCountryCode(tempPhone)
+            val phone = Util().removeCountryCode(tempPhone)
 
             progressBar.startDialog()
 

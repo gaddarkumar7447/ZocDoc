@@ -162,10 +162,12 @@ class LogInActivity : AppCompatActivity() {
         }
         mBackPressed = System.currentTimeMillis();
     }*/
+
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         val alert = AlertDialog.Builder(this)
         alert.setTitle("Exit App")
+        alert.setIcon(R.drawable.img)
         alert.setMessage("Do you want to exit app?")
         alert.setPositiveButton("Yes", DialogInterface.OnClickListener { dialogInterface, i ->
             finishAffinity()
