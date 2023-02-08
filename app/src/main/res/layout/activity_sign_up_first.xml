@@ -55,7 +55,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_height="500dp"
         android:background="@drawable/curve_box_final"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
-            android:layout_marginBottom="138dp"
+            android:layout_marginBottom="68dp"
             app:layout_constraintBottom_toTopOf="@+id/ageInput"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -118,14 +118,14 @@
             app:ss_textVisibility="visible"
             tools:ignore="MissingClass" />-->
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/nextButton"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_marginBottom="96dp"
+            android:layout_marginBottom="76dp"
             android:background="@drawable/primary_button"
             android:fontFamily="@font/dm_sans_medium"
             android:text="Next"
@@ -139,11 +139,11 @@
             android:id="@+id/ageInput"
             android:layout_width="313dp"
             android:layout_height="57dp"
-            android:layout_marginBottom="60dp"
+            android:layout_marginBottom="44dp"
             android:background="@drawable/editfield"
             android:ems="10"
             android:fontFamily="@font/dm_sans"
-            android:hint="Enter your age"
+            android:hint="@string/enter_your_age"
             android:inputType="number"
             android:paddingLeft="10dp"
             android:textColor="@color/black"

@@ -120,7 +120,7 @@
                     android:textColor="@color/light_blue"
                     android:textSize="15sp" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/loginButton"
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="match_parent"

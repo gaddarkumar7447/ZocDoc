@@ -17,7 +17,6 @@ class SignUpFirst : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up_first)
-
         supportActionBar?.hide()
 
         var  isDoctor : String = ""
@@ -50,7 +49,7 @@ class SignUpFirst : AppCompatActivity() {
                     startActivity(intent)
                 }
             }else if (isDoctor == "" && age.isEmpty()) {
-                Toast.makeText(this, "Enter age", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Please enter the age", Toast.LENGTH_SHORT).show()
             } else {
                 val intent = Intent(this, SignInActivity::class.java)
                 intent.putExtra("isDoctor", isDoctor)
@@ -58,7 +57,6 @@ class SignUpFirst : AppCompatActivity() {
                 startActivity(intent)
             }
         }
-
     }
 }
 

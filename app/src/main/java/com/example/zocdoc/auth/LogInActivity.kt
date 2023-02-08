@@ -2,8 +2,8 @@ package com.example.zocdoc.auth
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
@@ -11,20 +11,25 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.example.zocdoc.MainActivity
+import com.example.zocdoc.Home
 import com.example.zocdoc.R
 import com.example.zocdoc.databinding.ActivityLogInBinding
 import com.example.zocdoc.encryptionHelper.Encryption
+import com.example.zocdoc.progressbar.ProgressBar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
+
 class LogInActivity : AppCompatActivity() {
     private lateinit var dataBinding : ActivityLogInBinding
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var progressBar: ProgressBar
     @SuppressLint("ClickableViewAccessibility", "CommitPrefEdits")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +38,7 @@ class LogInActivity : AppCompatActivity() {
         supportActionBar?.hide()
         firebaseAuth = FirebaseAuth.getInstance()
 
+        progressBar = ProgressBar(this)
         methodCall()
 
     }
@@ -83,6 +89,8 @@ class LogInActivity : AppCompatActivity() {
             val email = dataBinding.SignInEmail.text.toString().trim()
             val password = dataBinding.SignInPassword.text.toString().trim()
 
+            progressBar.startDialog()
+
             if (email.isNotEmpty() && password.isNotEmpty()){
                 if (password.length > 7){
                     firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener{
@@ -109,20 +117,25 @@ class LogInActivity : AppCompatActivity() {
                                         Log.d("Tag", "Somethings wrong")
                                     }
                                 })
-                                startActivity(Intent(this, MainActivity::class.java))
+                                startActivity(Intent(this, Home::class.java))
+                                progressBar.isDismiss()
                             }else {
                                 u.sendEmailVerification()
                                 Toast.makeText(this, "Email Verification sent to your mail", Toast.LENGTH_LONG).show()
+                                progressBar.isDismiss()
                             }
                         }else{
-                            Toast.makeText(this, "Somethings wrong", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this, "Please enter valid details", Toast.LENGTH_LONG).show()
+                            progressBar.isDismiss()
                         }
                     }
                 }else{
                     Toast.makeText(this, "Password length must be greater than 8", Toast.LENGTH_SHORT).show()
+                    progressBar.isDismiss()
                 }
             }else{
                 Toast.makeText(this, "Please enter the details", Toast.LENGTH_LONG).show()
+                progressBar.isDismiss()
             }
         })
     }
@@ -134,5 +147,33 @@ class LogInActivity : AppCompatActivity() {
         dataBinding.toSignUp.setOnClickListener{
             startActivity(Intent(this, SignUpFirst::class.java))
         }
+    }
+
+    /*private val TIME_INTERVAL = 2000
+    private var mBackPressed: Long = 0
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis()) {
+            super.onBackPressed();
+            return;
+        }
+        else {
+            Toast.makeText(baseContext, "Tap back button to exit", Toast.LENGTH_SHORT).show();
+        }
+        mBackPressed = System.currentTimeMillis();
+    }*/
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        val alert = AlertDialog.Builder(this)
+        alert.setTitle("Exit App")
+        alert.setMessage("Do you want to exit app?")
+        alert.setPositiveButton("Yes", DialogInterface.OnClickListener { dialogInterface, i ->
+            finishAffinity()
+        })
+        alert.setNegativeButton("No", DialogInterface.OnClickListener { dialogInterface, i ->
+
+        })
+        alert.setCancelable(false)
+        alert.show()
     }
 }

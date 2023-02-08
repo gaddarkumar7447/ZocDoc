@@ -563,7 +563,6 @@ public class Encryption {
             mDigestAlgorithm = digestAlgorithm;
             return this;
         }
-
     }
 
 }

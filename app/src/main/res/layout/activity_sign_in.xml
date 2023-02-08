@@ -172,7 +172,7 @@
                     app:layout_constraintStart_toStartOf="@+id/SignUp_Email"
                     app:layout_constraintTop_toBottomOf="@+id/SignUp_Email" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/createAccount"
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="match_parent"

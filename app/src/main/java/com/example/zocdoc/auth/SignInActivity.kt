@@ -16,6 +16,7 @@ import androidx.databinding.DataBindingUtil
 import com.example.zocdoc.R
 import com.example.zocdoc.Util
 import com.example.zocdoc.databinding.ActivitySignInBinding
+import com.example.zocdoc.progressbar.ProgressBar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -25,12 +26,15 @@ class SignInActivity : AppCompatActivity() {
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var db : DatabaseReference
     private lateinit var fd : FirebaseDatabase
+    private lateinit var progressBar : ProgressBar
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_sign_in)
         supportActionBar?.hide()
+
+        progressBar = ProgressBar(this)
 
         val isDoctor = intent.extras?.getString("isDoctor")
         val age = intent.extras?.getString("age")
@@ -94,6 +98,8 @@ class SignInActivity : AppCompatActivity() {
             val specialist = dataBinding.SignUpTypeOfDoctor.text.toString().trim()
             val phone = Util.removeCountryCode(tempPhone)
 
+            progressBar.startDialog()
+
             if (name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 if (password.length > 7) {
                     firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
@@ -107,10 +113,12 @@ class SignInActivity : AppCompatActivity() {
 
                             //add user data in the Realtime Database
                             db.child(u?.uid!!).setValue(user).addOnCompleteListener { it1 ->
-                                if (it1.isSuccessful) {
+                                if(it1.isSuccessful) {
                                     u.sendEmailVerification()
                                     Toast.makeText(this, "Email Verification sent to your mail", Toast.LENGTH_LONG).show()
                                     startActivity(Intent(this, LogInActivity::class.java))
+
+                                    progressBar.isDismiss()
 
                                     if (isDoctor == "Doctor") {
                                         fd.getReference(isDoctor).child(u.uid).setValue(user).addOnSuccessListener {}
@@ -118,16 +126,20 @@ class SignInActivity : AppCompatActivity() {
 
                                 } else
                                     Log.e("Not successful", "Unsuccessful")
+                                    progressBar.isDismiss()
                             }
                         } else {
-                            Toast.makeText(this, "Somethings went to wrong", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "Please enter valid details", Toast.LENGTH_SHORT).show()
+                            progressBar.isDismiss()
                         }
                     }
                 } else {
                     Toast.makeText(this, "password is greater than 8", Toast.LENGTH_SHORT).show()
+                    progressBar.isDismiss()
                 }
             } else {
                 Toast.makeText(this, "Please enter the details!", Toast.LENGTH_SHORT).show()
+                progressBar.isDismiss()
             }
         }
 
@@ -143,4 +155,6 @@ class SignInActivity : AppCompatActivity() {
             startActivity(Intent(this, LogInActivity::class.java))
         }
     }
+
+
 }
