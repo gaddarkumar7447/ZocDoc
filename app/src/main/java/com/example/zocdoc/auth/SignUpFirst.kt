@@ -37,14 +37,19 @@ class SignUpFirst : AppCompatActivity() {
         }
 
         dataBinding.infoOfDoctor.setOnClickListener{
+            // bottom sheet dialog
             /*val dialog = ParagraphModelBinding.inflate(layoutInflater)
             val bottomSheet = Util().createBottomSheet(this)
             dialog.apply {
-                paragraphHeading.text = "Gaddar"
-                paragraphContent.text = "Gagagag"
+                paragraphHeading.text = "Notice"
+                paragraphContent.text = "1. If you are doctor than swipe the button.\n2. If you are patient then no need for swipe\n"
             }
-            val paragraphModelBinding = ParagraphModelBinding.bind(View(this))
-            paragraphModelBinding.root*/
+            val view = dialog.root
+            Util().setBottomSheet(view, bottomSheet)
+            bottomSheet.show()*/
+
+            // Alert dialog box
+
             val alert = AlertDialog.Builder(this)
             alert.setTitle("Notices")
             alert.setIcon(R.drawable.img)

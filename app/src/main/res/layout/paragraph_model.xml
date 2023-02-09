@@ -29,7 +29,7 @@
                 android:id="@+id/paragraph_heading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/dm_sans"
                 android:text="Heading"
                 android:textColor="@color/black"
@@ -52,6 +52,5 @@
 
 
         </LinearLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

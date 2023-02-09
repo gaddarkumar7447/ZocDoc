@@ -7,8 +7,8 @@ import android.os.Handler
 import androidx.databinding.DataBindingUtil
 import com.example.zocdoc.Home
 import com.example.zocdoc.R
-import com.example.zocdoc.auth.LogInActivity
 import com.example.zocdoc.databinding.ActivitySplaceBinding
+import com.example.zocdoc.onboarding.OnBindingActivity
 import com.google.firebase.auth.FirebaseAuth
 
 class SplaceActivity : AppCompatActivity() {
@@ -31,18 +31,17 @@ class SplaceActivity : AppCompatActivity() {
                 if (currentUser.isEmailVerified)
                     loginIntent = Intent(this, Home::class.java) //If the user email is verified
                 else
-                    loginIntent = Intent(this, LogInActivity::class.java) //If the user email is not verified
+                    loginIntent = Intent(this, OnBindingActivity::class.java) //If the user email is not verified
                 loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 startActivity(loginIntent)
                 finish()
             }, 2000)
         }
-
     }
 
     private fun sendUserToLoginActivity() {
         Handler().postDelayed({
-            val loginIntent = Intent(this, LogInActivity::class.java)
+            val loginIntent = Intent(this, OnBindingActivity::class.java)
             loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
             startActivity(loginIntent)
             finish()

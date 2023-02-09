@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#e9e9e9"
+        tools:context=".onboarding.OnBindingActivity">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_skip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Skip"
+            app:textAllCaps="true"
+            android:textSize="18sp"
+            android:fontFamily="@font/dm_sans_bold"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="30dp"
+            android:textColor="@color/light_blue"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:layout_below="@id/text_skip"
+            android:layout_above="@id/bottom_navigation" />
+
+        <RelativeLayout
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:background="#e9e9e9"
+            android:layout_alignParentBottom="true">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/pageIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:tabGravity="center"
+                app:tabIndicatorHeight="0dp"
+                android:background="#e9e9e9"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="30dp"
+                app:tabBackground="@drawable/selecter_blue" />
+
+
+            <Button
+                android:id="@+id/btn_next_step"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:fontFamily="@font/dm_sans_bold"
+                android:text="Next"
+                android:textSize="16sp"
+                android:layout_margin="10dp"
+                android:textColor="@color/light_blue"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</layout>

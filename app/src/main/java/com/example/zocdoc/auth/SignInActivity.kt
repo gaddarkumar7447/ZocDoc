@@ -113,7 +113,7 @@ class SignInActivity : AppCompatActivity() {
 
                             //add user data in the Realtime Database
                             db.child(u?.uid!!).setValue(user).addOnCompleteListener { it1 ->
-                                if(it1.isSuccessful) {
+                                if(it1.isSuccessful){
                                     u.sendEmailVerification()
                                     Toast.makeText(this, "Email Verification sent to your mail", Toast.LENGTH_LONG).show()
                                     startActivity(Intent(this, LogInActivity::class.java))

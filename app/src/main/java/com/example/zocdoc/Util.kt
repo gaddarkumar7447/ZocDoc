@@ -1,6 +1,7 @@
 package com.example.zocdoc
 
 import android.app.Activity
+import android.content.Context
 import android.view.View
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -17,13 +18,14 @@ class Util {
         }
     }
 
+    // create bottom sheet dialog
     fun createBottomSheet(activity: Activity): BottomSheetDialog {
         return BottomSheetDialog(activity, R.style.BottomSheetDialogTheme)
     }
 
-    fun View.setBottomSheet(bottomSheet: BottomSheetDialog) {
+    fun setBottomSheet(view : View, bottomSheet: BottomSheetDialog) {
         bottomSheet.behavior.state = BottomSheetBehavior.STATE_EXPANDED
-        bottomSheet.setContentView(this)
+        bottomSheet.setContentView(view)
         bottomSheet.create()
         bottomSheet.show()
     }
