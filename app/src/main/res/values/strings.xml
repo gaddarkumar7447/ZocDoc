@@ -28,4 +28,9 @@
     <string name="onboardDes2">This guide is designed to help new users get comfortable and confident with the ZocDoc healthcare app. It covers all the key features and functionalities of the app, providing clear and concise instructions for using them. Whether you\'re booking appointments, exploring providers, or managing your health information, this guide will help you navigate the app with ease, so you can take control of your healthcare.</string>
     <string name="onboardDes3">This guide is designed to help new users unlock the full potential of the ZocDoc healthcare app. It covers all the essential features and functions of the app, providing a comprehensive overview of what the app can do. From booking appointments and finding providers to managing your health information and accessing resources, this guide will help you discover the power of ZocDoc and make the most of your healthcare journey.</string>
     <string name="onboardDes4">This guide is designed to help new users get the most out of the ZocDoc healthcare app. It covers all the key features and functionalities of the app, providing clear and concise instructions for using them.\n Whether you\'re booking appointments, exploring providers, or managing your health information, this guide will help you maximize your ZocDoc experience, so you can take control of your healthcare like never before.</string>
+    <string name="hello">Hello</string>
+    <string name="loading_name">Loading name...</string>
+    <string name="want_to_book_an_appointment">Want to book an appointment?</string>
+    <string name="enter_the_doctor_s_name_email_or_phone">Enter the doctor\'s name, email or phone</string>
+    <string name="doctor_found">Doctor Found!</string>
 </resources>

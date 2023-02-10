@@ -113,6 +113,7 @@ class LogInActivity : AppCompatActivity() {
                                             editor.putString("stats", snapshot.child("stats").value.toString().trim())
                                             editor.putString("prescription", snapshot.child("prescription").value.toString().trim())
                                             editor.putString("upi", snapshot.child(encryption.encrypt("nulla")).value.toString().trim())
+
                                             editor.apply()
                                         }
                                         override fun onCancelled(error: DatabaseError) {

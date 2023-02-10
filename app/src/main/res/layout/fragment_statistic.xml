@@ -6,15 +6,17 @@
 
     </data>
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".fragments.StatisticFragment">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />
+            android:layout_width="wrap_content"
+            android:textColor="@color/black"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content"
+            android:text="Statics" />
 
-    </FrameLayout>
+    </RelativeLayout>
 </layout>

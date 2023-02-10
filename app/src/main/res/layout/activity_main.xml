@@ -11,19 +11,79 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background"
+        android:background="@color/white"
         tools:context=".Home">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="match_parent"
-            android:background="@drawable/primary_button"
-            android:layout_centerInParent="true"
-            android:text="Url"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="30dp"
-            android:id="@+id/urlButtom"
-            android:layout_height="wrap_content"/>
 
+        <!-- <androidx.drawerlayout.widget.DrawerLayout
+             android:layout_width="match_parent"
+             android:id="@+id/drawerLayout"
+             android:layout_height="match_parent">
+
+             <RelativeLayout
+                 android:layout_width="match_parent"
+                 android:id="@+id/match"
+                 android:layout_height="?attr/actionBarSize">
+
+                 <com.google.android.material.appbar.AppBarLayout
+                     android:layout_width="match_parent"
+                     android:id="@+id/appBar"
+                     android:background="@color/dull_blue"
+                     android:layout_height="?attr/actionBarSize">
+
+                     <com.google.android.material.appbar.MaterialToolbar
+                         android:layout_width="match_parent"
+                         android:id="@+id/toolBar"
+                         app:titleCentered="true"
+                         app:title="ZocDoc"
+                         app:navigationIcon="@drawable/menu_icon"
+                         android:layout_height="match_parent"/>
+                 </com.google.android.material.appbar.AppBarLayout>
+
+             </RelativeLayout>
+
+
+             <com.google.android.material.navigation.NavigationView
+                 android:layout_width="match_parent"
+                 android:layout_gravity="start"
+                 android:background="#e7e7e7"
+                 app:menu="@menu/drawer_menu"
+                 app:headerLayout="@layout/drawer_layout"
+                 app:itemTextColor="@color/black"
+                 android:id="@+id/navigationView"
+                 android:layout_height="match_parent"/>
+
+         </androidx.drawerlayout.widget.DrawerLayout>-->
+
+        <fragment
+            android:id="@+id/fragmentContainerView"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            android:layout_marginBottom="65dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navGraph="@navigation/navigation" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNav"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginEnd="-3dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/bottom_nav"
+            android:elevation="8dp"
+            app:labelVisibilityMode="auto"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:menu="@menu/bottom_menu" />
 
     </RelativeLayout>
 </layout>
