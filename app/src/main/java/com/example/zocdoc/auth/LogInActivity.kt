@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.zocdoc.Home
 import com.example.zocdoc.R
+import com.example.zocdoc.Util
 import com.example.zocdoc.databinding.ActivityLogInBinding
 import com.example.zocdoc.encryptionHelper.Encryption
 import com.example.zocdoc.progressbar.ProgressBar
@@ -91,50 +92,55 @@ class LogInActivity : AppCompatActivity() {
 
             progressBar.startDialog()
 
-            if (email.isNotEmpty() && password.isNotEmpty()){
-                if (password.length > 7){
-                    firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener{
-                        if (it.isSuccessful){
-                            val u = firebaseAuth.currentUser
-                            if (u?.isEmailVerified!!){
-                                val db = FirebaseDatabase.getInstance().reference
-                                val encryption = Encryption.getDefault("Key", "Salt", ByteArray(16))
-                                db.child("Users").child(u.uid).addValueEventListener(object : ValueEventListener{
-                                    override fun onDataChange(snapshot: DataSnapshot) {
-                                        editor.putString("uid", snapshot.child("uid").value.toString().trim())
-                                        editor.putString("name", snapshot.child("name").value.toString().trim())
-                                        editor.putString("age", snapshot.child("age").value.toString().trim())
-                                        editor.putString("email", snapshot.child("email").value.toString().trim())
-                                        editor.putString("phone", snapshot.child("phone").value.toString().trim())
-                                        editor.putString("isDoctor", snapshot.child("doctor").value.toString().trim())
-                                        editor.putString("specialist",snapshot.child("specialist").value.toString().trim())
-                                        editor.putString("stats", snapshot.child("stats").value.toString().trim())
-                                        editor.putString("prescription", snapshot.child("prescription").value.toString().trim())
-                                        editor.putString("upi", snapshot.child(encryption.encrypt("nulla")).value.toString().trim())
-                                        editor.apply()
-                                    }
-                                    override fun onCancelled(error: DatabaseError) {
-                                        Log.d("Tag", "Somethings wrong")
-                                    }
-                                })
-                                startActivity(Intent(this, Home::class.java))
-                                progressBar.isDismiss()
-                            }else {
-                                u.sendEmailVerification()
-                                Toast.makeText(this, "Email Verification sent to your mail", Toast.LENGTH_LONG).show()
+            if (Util().checkForInternet(this)){
+                if (email.isNotEmpty() && password.isNotEmpty()){
+                    if (password.length > 7){
+                        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener{
+                            if (it.isSuccessful){
+                                val u = firebaseAuth.currentUser
+                                if (u?.isEmailVerified!!){
+                                    val db = FirebaseDatabase.getInstance().reference
+                                    val encryption = Encryption.getDefault("Key", "Salt", ByteArray(16))
+                                    db.child("Users").child(u.uid).addValueEventListener(object : ValueEventListener{
+                                        override fun onDataChange(snapshot: DataSnapshot) {
+                                            editor.putString("uid", snapshot.child("uid").value.toString().trim())
+                                            editor.putString("name", snapshot.child("name").value.toString().trim())
+                                            editor.putString("age", snapshot.child("age").value.toString().trim())
+                                            editor.putString("email", snapshot.child("email").value.toString().trim())
+                                            editor.putString("phone", snapshot.child("phone").value.toString().trim())
+                                            editor.putString("isDoctor", snapshot.child("doctor").value.toString().trim())
+                                            editor.putString("specialist",snapshot.child("specialist").value.toString().trim())
+                                            editor.putString("stats", snapshot.child("stats").value.toString().trim())
+                                            editor.putString("prescription", snapshot.child("prescription").value.toString().trim())
+                                            editor.putString("upi", snapshot.child(encryption.encrypt("nulla")).value.toString().trim())
+                                            editor.apply()
+                                        }
+                                        override fun onCancelled(error: DatabaseError) {
+                                            Log.d("Tag", "Somethings wrong")
+                                        }
+                                    })
+                                    startActivity(Intent(this, Home::class.java))
+                                    progressBar.isDismiss()
+                                }else {
+                                    u.sendEmailVerification()
+                                    Toast.makeText(this, "Email Verification sent to your mail", Toast.LENGTH_LONG).show()
+                                    progressBar.isDismiss()
+                                }
+                            }else{
+                                Toast.makeText(this, "Please enter valid details", Toast.LENGTH_LONG).show()
                                 progressBar.isDismiss()
                             }
-                        }else{
-                            Toast.makeText(this, "Please enter valid details", Toast.LENGTH_LONG).show()
-                            progressBar.isDismiss()
                         }
+                    }else{
+                        Toast.makeText(this, "Password length must be greater than 8", Toast.LENGTH_SHORT).show()
+                        progressBar.isDismiss()
                     }
                 }else{
-                    Toast.makeText(this, "Password length must be greater than 8", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Please enter the details", Toast.LENGTH_LONG).show()
                     progressBar.isDismiss()
                 }
             }else{
-                Toast.makeText(this, "Please enter the details", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Please check internet connection", Toast.LENGTH_LONG).show()
                 progressBar.isDismiss()
             }
         })

@@ -100,45 +100,50 @@ class SignInActivity : AppCompatActivity() {
 
             progressBar.startDialog()
 
-            if (name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                if (password.length > 7) {
-                    firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
-                        if (it.isSuccessful) {
+            if (Util().checkForInternet(this)){
+                if (name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    if (password.length > 7) {
+                        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
+                            if (it.isSuccessful) {
 
-                            val u = firebaseAuth.currentUser
-                            val uid = firebaseAuth.currentUser?.uid.toString()
-                            //Create user object
-                            val statsData = "0:0:0:0:0?0:0:0:0:0?0:0:0:0:0?0:0:0:0:0"
-                            val user = User(name, email, phone, uid, isDoctor, age, specialist, statsData, "false")
+                                val u = firebaseAuth.currentUser
+                                val uid = firebaseAuth.currentUser?.uid.toString()
+                                //Create user object
+                                val statsData = "0:0:0:0:0?0:0:0:0:0?0:0:0:0:0?0:0:0:0:0"
+                                val user = User(name, email, phone, uid, isDoctor, age, specialist, statsData, "false")
 
-                            //add user data in the Realtime Database
-                            db.child(u?.uid!!).setValue(user).addOnCompleteListener { it1 ->
-                                if(it1.isSuccessful){
-                                    u.sendEmailVerification()
-                                    Toast.makeText(this, "Email Verification sent to your mail", Toast.LENGTH_LONG).show()
-                                    startActivity(Intent(this, LogInActivity::class.java))
+                                //add user data in the Realtime Database
+                                db.child(u?.uid!!).setValue(user).addOnCompleteListener { it1 ->
+                                    if(it1.isSuccessful){
+                                        u.sendEmailVerification()
+                                        Toast.makeText(this, "Email Verification sent to your mail", Toast.LENGTH_LONG).show()
+                                        startActivity(Intent(this, LogInActivity::class.java))
 
+                                        progressBar.isDismiss()
+
+                                        if (isDoctor == "Doctor") {
+                                            fd.getReference(isDoctor).child(u.uid).setValue(user).addOnSuccessListener {}
+                                        }
+
+                                    } else
+                                        Log.e("Not successful", "Unsuccessful")
                                     progressBar.isDismiss()
-
-                                    if (isDoctor == "Doctor") {
-                                        fd.getReference(isDoctor).child(u.uid).setValue(user).addOnSuccessListener {}
-                                    }
-
-                                } else
-                                    Log.e("Not successful", "Unsuccessful")
-                                    progressBar.isDismiss()
+                                }
+                            } else {
+                                Toast.makeText(this, "Please enter valid details", Toast.LENGTH_SHORT).show()
+                                progressBar.isDismiss()
                             }
-                        } else {
-                            Toast.makeText(this, "Please enter valid details", Toast.LENGTH_SHORT).show()
-                            progressBar.isDismiss()
                         }
+                    } else {
+                        Toast.makeText(this, "password is greater than 8", Toast.LENGTH_SHORT).show()
+                        progressBar.isDismiss()
                     }
                 } else {
-                    Toast.makeText(this, "password is greater than 8", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Please enter the details!", Toast.LENGTH_SHORT).show()
                     progressBar.isDismiss()
                 }
-            } else {
-                Toast.makeText(this, "Please enter the details!", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(this, "Please check internet connection", Toast.LENGTH_LONG).show()
                 progressBar.isDismiss()
             }
         }

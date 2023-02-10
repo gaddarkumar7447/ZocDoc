@@ -14,6 +14,16 @@
         android:background="@drawable/background"
         tools:context=".Home">
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:background="@drawable/primary_button"
+            android:layout_centerInParent="true"
+            android:text="Url"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="30dp"
+            android:id="@+id/urlButtom"
+            android:layout_height="wrap_content"/>
+
 
     </RelativeLayout>
 </layout>
