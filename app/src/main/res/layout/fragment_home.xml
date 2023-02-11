@@ -118,7 +118,7 @@
                         android:fontFamily="@font/dm_sans"
                         android:drawableStart="@drawable/search"
                         android:drawablePadding="5dp"
-                        android:hint="eg. xyz1234@gmail.com"
+                        android:hint="eg. xyz1234@gmail.com or phone"
                         android:imeOptions="actionDone"
                         android:inputType="textEmailAddress"
                         android:paddingStart="10dp"

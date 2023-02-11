@@ -33,4 +33,6 @@
     <string name="want_to_book_an_appointment">Want to book an appointment?</string>
     <string name="enter_the_doctor_s_name_email_or_phone">Enter the doctor\'s name, email or phone</string>
     <string name="doctor_found">Doctor Found!</string>
+    <string name="select_date_first">Select Date First</string>
+    <string name="my_patients">My patients</string>
 </resources>

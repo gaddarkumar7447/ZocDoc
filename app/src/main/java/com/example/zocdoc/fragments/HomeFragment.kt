@@ -48,34 +48,33 @@ class HomeFragment : Fragment() {
 
         firebaseAuth = FirebaseAuth.getInstance()
         db = FirebaseDatabase.getInstance().reference
-        val user = firebaseAuth.currentUser
 
         sharedPreferences = requireActivity().getSharedPreferences("UserData", Context.MODE_PRIVATE)
-
-        userName = sharedPreferences.getString("name", "Not found").toString()
-
 
         getPreferences()
 
         dataBindingFragment.doctorData.setOnEditorActionListener { textView, i, keyEvent ->
             if (i == EditorInfo.IME_ACTION_DONE){
                 searchedData = dataBindingFragment.doctorData.text.toString().trim()
-                Log.d("Searched", "Name: $searchedData")
                 if (searchedData.isNotEmpty()){
-                    if (Util().removeCountryCode(searchedData) == userPhone || searchedEmail == userEmail || isSameName(searchedData, userName)){
+                    if (Util().removeCountryCode(searchedData) == userPhone || searchedData == userPhone || searchedData == userEmail || isSameName(searchedData, userName)){
                         Toast.makeText(requireContext(), "Stop searching yourself", Toast.LENGTH_SHORT).show()
                         dataBindingFragment.cardView.isVisible = false
                         dataBindingFragment.slider.isVisible = false
                     }else{
-                        doctorIsPresent()
+                        try{
+                            doctorIsPresent()
+                        }catch (e : Exception){
+                            Toast.makeText(requireContext(), "$e", Toast.LENGTH_LONG).show()
+                        }
                     }
                 }else{
                     Toast.makeText(requireContext(), "Enter doctor's Email/Phone", Toast.LENGTH_SHORT).show()
                 }
+                true
             }
             false
         }
-
 
 
         dataBindingFragment.slider.animDuration = 150
@@ -108,6 +107,7 @@ class HomeFragment : Fragment() {
                 for (data in snapshot.children){
                    val map = data.value as Map<*, *>
                     val sName = map["name"].toString().trim()
+                    // Log.d("Sname", "name: $sName")
                     val sPhone = map["phone"].toString().trim()
                     val sType = map["specialist"].toString().trim()
                     val sEmail = map["email"].toString().trim()
@@ -127,6 +127,7 @@ class HomeFragment : Fragment() {
                         dataBindingFragment.doctorPhone.text = "Phone : $sPhone"
                         dataBindingFragment.doctorEmail.text = "Email : $sEmail"
                         dataBindingFragment.doctortype.text = "Specialization : $sType"
+                        return
                     }else{
                         dataBindingFragment.textView3.isVisible = true
                     }

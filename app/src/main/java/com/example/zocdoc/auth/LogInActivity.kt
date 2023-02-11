@@ -13,6 +13,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import com.example.zocdoc.Home
 import com.example.zocdoc.R
@@ -25,7 +26,6 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-
 
 class LogInActivity : AppCompatActivity() {
     private lateinit var dataBinding : ActivityLogInBinding
@@ -85,7 +85,6 @@ class LogInActivity : AppCompatActivity() {
     private fun logIn() {
         val sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-
         dataBinding.loginButton.setOnClickListener(View.OnClickListener {
             val email = dataBinding.SignInEmail.text.toString().trim()
             val password = dataBinding.SignInPassword.text.toString().trim()
@@ -113,7 +112,6 @@ class LogInActivity : AppCompatActivity() {
                                             editor.putString("stats", snapshot.child("stats").value.toString().trim())
                                             editor.putString("prescription", snapshot.child("prescription").value.toString().trim())
                                             editor.putString("upi", snapshot.child(encryption.encrypt("nulla")).value.toString().trim())
-
                                             editor.apply()
                                         }
                                         override fun onCancelled(error: DatabaseError) {

@@ -160,6 +160,4 @@ class SignInActivity : AppCompatActivity() {
             startActivity(Intent(this, LogInActivity::class.java))
         }
     }
-
-
 }

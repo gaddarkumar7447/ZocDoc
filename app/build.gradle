@@ -71,7 +71,7 @@ dependencies {
     // Chrome custom tab
     implementation 'androidx.browser:browser:1.4.0'
 
-    // meterial
+    // material
     implementation 'com.google.android.material:material:1.8.0'
 
     //Swipe/Slide button
