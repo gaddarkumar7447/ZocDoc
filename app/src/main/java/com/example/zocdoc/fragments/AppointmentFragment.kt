@@ -59,23 +59,9 @@ class AppointmentFragment : Fragment() {
 
         // select date
         dataBinding.selectDate.setOnClickListener{
-
-            // disabled previous date
-            /*val calendar = Calendar.getInstance(TimeZone.getDefault())
-            calendar.timeInMillis = System.currentTimeMillis()
-
-            val datePicker = MaterialDatePicker.Builder.datePicker()
-                .setSelection(calendar.timeInMillis)
-                .setMinDate(calendar.timeInMillis)
-                .setTitleText("Select a date")
-                .build()*/
-
-            // Show the date picker
-           // requireFragmentManager().let { datePicker.show(it, "DatePicker") }
-
             val datePicker = MaterialDatePicker.Builder.datePicker().build()
             requireFragmentManager().let { datePicker.show(it, "datePicker") }
-            //datePicker.show(requireFragmentManager(), "as")
+            //datePicker.show(requireFragmentManager(), "datePicker")
             val date : StringBuilder = StringBuilder("")
 
             datePicker.addOnPositiveButtonClickListener {
@@ -120,5 +106,11 @@ class AppointmentFragment : Fragment() {
         })
 
         dataBinding.selectDateTextToHide.visibility = View.GONE
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val isDoctor = sharedPreferences.getString("isDoctor","Not found").toString()
+        if (isDoctor == "Doctor") dataBinding.toPatientList.visibility = View.VISIBLE
     }
 }
