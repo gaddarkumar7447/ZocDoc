@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
+import android.os.Vibrator
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,8 +14,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.isVisible
 import com.example.zocdoc.Util
+import com.example.zocdoc.appointment.AppointmentBooking
 import com.example.zocdoc.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -71,7 +74,6 @@ class HomeFragment : Fragment() {
                 }else{
                     Toast.makeText(requireContext(), "Enter doctor's Email/Phone", Toast.LENGTH_SHORT).show()
                 }
-                true
             }
             false
         }
@@ -81,13 +83,24 @@ class HomeFragment : Fragment() {
         dataBindingFragment.slider.onSlideCompleteListener = object : SlideToActView.OnSlideCompleteListener{
             override fun onSlideComplete(view: SlideToActView) {
                 if (userPrescription != "false"){
-                    val intent = Intent(requireContext(), AppointmentFragment::class.java)
+                    val intent = Intent(requireContext(), AppointmentBooking::class.java)
                     intent.putExtra("Dname", searchedName)
                     intent.putExtra("Demail", searchedEmail)
                     intent.putExtra("Dphone", searchedPhone)
                     intent.putExtra("Dtype", searchedType)
                     intent.putExtra("Duid", searchedUid)
-                    startActivity(intent)
+                    try {
+                        startActivity(intent)
+                    }catch (e : Exception){
+                        Toast.makeText(requireActivity(), "$e", Toast.LENGTH_LONG).show()
+                        //Log.d("Some", "Some error: $e")
+                    }
+                    // Adding vibrate
+                    view.bumpVibration = 100
+                    val vibrator = requireContext().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+                    if (vibrator.hasVibrator()) {
+                        vibrator.vibrate(100)
+                    }
                     dataBindingFragment.slider.resetSlider()
                 }else{
                     Toast.makeText(requireActivity(), "Please upload your prescription in settings tab", Toast.LENGTH_SHORT).show()

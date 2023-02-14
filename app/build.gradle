@@ -81,4 +81,7 @@ dependencies {
 
     // Dexter
     implementation 'com.karumi:dexter:6.2.3'
+
+    // Animation Lottie
+    implementation "com.airbnb.android:lottie:5.2.0"
 }

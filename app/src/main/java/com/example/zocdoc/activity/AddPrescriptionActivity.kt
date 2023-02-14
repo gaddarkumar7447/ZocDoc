@@ -47,12 +47,14 @@ class AddPrescriptionActivity : AppCompatActivity() {
 
         dataBinding.cancelfile.setOnClickListener{
             dataBinding.filetitle.text.clear()
-            dataBinding.filelogo.visibility = View.VISIBLE
+            select = false
+            dataBinding.cancelfile.visibility = View.GONE
+            dataBinding.filelogo.visibility = View.INVISIBLE
             dataBinding.cancelfile.visibility = View.VISIBLE
             dataBinding.imagebrowse.visibility = View.VISIBLE
         }
 
-        dbref = FirebaseDatabase.getInstance().reference
+        dbref = FirebaseDatabase.getInstance().getReference("Users")
 
         // Browse PDF from the file manager
         dataBinding.imagebrowse.setOnClickListener(View.OnClickListener {
@@ -140,14 +142,14 @@ class AddPrescriptionActivity : AppCompatActivity() {
                         val editor = sharedPreferences.edit()
                         editor.putString("prescription", uri.toString())
                         editor.apply()
-
-                        dbref?.child("Users")?.child(userId)?.child("prescription")?.setValue(uri.toString())
+                        //dbref?.child("Users")?.child(userId)?.child("prescription")?.setValue(uri.toString())
+                        FirebaseDatabase.getInstance().getReference("Users").child(userId).child("prescription").setValue(uri.toString())
 
                         pro.dismiss()
 
                         dataBinding.filetitle.setText("")
-                        dataBinding.filelogo.visibility = View.VISIBLE
-                        dataBinding.cancelfile.visibility = View.VISIBLE
+                        dataBinding.filelogo.visibility = View.INVISIBLE
+                        dataBinding.cancelfile.visibility = View.INVISIBLE
                         dataBinding.imagebrowse.visibility = View.VISIBLE
 
                     }
@@ -156,6 +158,9 @@ class AddPrescriptionActivity : AppCompatActivity() {
                 pro.setMessage("Uploaded : ${percentage.toInt()}%")
             }.addOnCompleteListener{
                 if (it.isSuccessful){
+                    dataBinding.uploaded.visibility = View.VISIBLE
+                    select = false
+                    Toast.makeText(this, "Uploaded!", Toast.LENGTH_LONG).show()
                     pro.dismiss()
                 }else{
                     Toast.makeText(this, "Upload failed!", Toast.LENGTH_SHORT).show()

@@ -9,5 +9,5 @@ data class User(
     val Age: String? = null,
     val Specialist: String? = null,
     val Stats: String? = null,
-    val Prescription: String? = null
+    var Prescription: String? = null
 )

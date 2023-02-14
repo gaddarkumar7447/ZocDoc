@@ -27,7 +27,7 @@
             android:text="@string/add_prescription"
             android:textColor="@color/white"
             android:textSize="35sp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.099"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +42,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/white_bar"
         android:gravity="center"
-        android:layout_marginTop="170dp"
+        android:layout_marginTop="110dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -105,8 +105,8 @@
 
         <ImageView
             android:id="@+id/filelogo"
-            android:layout_width="241dp"
-            android:layout_height="190dp"
+            android:layout_width="262dp"
+            android:layout_height="210dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/filetitle"
             app:layout_constraintEnd_toEndOf="parent"
@@ -128,6 +128,24 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.635"
             app:srcCompat="@drawable/cancel_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:id="@+id/uploaded"
+            android:fontFamily="@font/dm_sans_bold"
+            android:text="Uploaded"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/dull_blue"
+            android:textSize="25dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/filelogo"
+            app:layout_constraintEnd_toStartOf="@+id/cancelfile"
+            app:layout_constraintHorizontal_bias="0.743"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

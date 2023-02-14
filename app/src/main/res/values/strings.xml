@@ -48,4 +48,8 @@
     <string name="select_prescription">Select Prescription</string>
     <string name="add_prescription">Add Prescription</string>
     <string name="upload_file">Upload file</string>
+    <string name="select_date">Select Date</string>
+    <string name="select_time">Select time</string>
+    <string name="situation">Situation</string>
+    <string name="booking_confirmed">Booking Confirmed</string>
 </resources>

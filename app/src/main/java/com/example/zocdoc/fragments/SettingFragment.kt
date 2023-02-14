@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.navigation.Navigation
 import com.example.zocdoc.R
@@ -26,7 +27,6 @@ import com.google.firebase.database.*
 
 class SettingFragment : Fragment() {
     private lateinit var dataBinding : FragmentSettingBinding
-    private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var db : DatabaseReference
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var userID : String
