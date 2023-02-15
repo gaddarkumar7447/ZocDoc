@@ -8,13 +8,13 @@
     android:layout_marginBottom="10dp"
     android:elevation="10dp"
     android:padding="10dp"
+    app:cardBackgroundColor="#F0F6F8"
     app:cardCornerRadius="10sp"
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/cardview_background">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/downloadPrescription"
@@ -40,16 +40,16 @@
             app:layout_constraintVertical_bias="0.0">
 
             <TextView
-                android:id="@+id/nameDisplay"
+                android:id="@+id/nameDisplay1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/dm_sans_bold"
-                android:text="Doctor Name: "
+                android:text="Patient Name: "
                 android:textColor="@color/light_blue"
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/diseaseDisplay"
+                android:id="@+id/diseaseDisplay1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"

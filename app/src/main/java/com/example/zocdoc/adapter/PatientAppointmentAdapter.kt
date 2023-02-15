@@ -1,5 +1,6 @@
 package com.example.zocdoc.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -18,6 +19,7 @@ class PatientAppointmentAdapter(private val context: Context, private val appoin
         return AppointMentViewHolder(LayoutInflater.from(context).inflate(R.layout.patient_list, parent, false))
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: AppointMentViewHolder, position: Int) {
         val currentItem = appointmentList[position]
         val name = currentItem.DoctorName
@@ -26,7 +28,7 @@ class PatientAppointmentAdapter(private val context: Context, private val appoin
         val date = currentItem.Date
         val time = currentItem.Time
 
-        holder.name.text = name
+        holder.name.text = "Dr. $name"
         holder.date.text = date
         holder.disease.text = disease
         holder.time.text = time

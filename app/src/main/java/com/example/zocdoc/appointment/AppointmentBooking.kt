@@ -8,10 +8,15 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Vibrator
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.DatePicker
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
+import androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged
 import com.example.zocdoc.R
 import com.example.zocdoc.activity.BookingDoneActivity
 import com.example.zocdoc.databinding.ActivityAppointmentBookingBinding
@@ -81,7 +86,29 @@ class AppointmentBooking : AppCompatActivity() {
             datePicker.addOnNegativeButtonClickListener{}
         }
 
+        // set text watcher
+        dataBinding.selectDate.addTextChangedListener(textWatcher)
+        dataBinding.timeDropdown.addTextChangedListener(textWatcher)
+        dataBinding.diseaseDropdown.addTextChangedListener(textWatcher)
+        dataBinding.situationDropdown.addTextChangedListener(textWatcher)
+
+        // diseases list
+        val item : List<String> = mapOfDiseasesList[doctorType]!!
+        val adapter = ArrayAdapter(this, R.layout.item_text, item)
+        dataBinding.diseaseDropdown.setAdapter(adapter)
+
+        // situation list
+        val situationList = listOf<String>("Severe Pain", "Mild Pain", "No Pain")
+        val adapterS = ArrayAdapter(this, R.layout.item_text, situationList)
+        dataBinding.situationDropdown.setAdapter(adapterS)
+
+        // item time
+        val itemTime = listOf<String>("9:00 AM - 11:00 AM","11:00 AM - 13:00 PM", "17:00 PM - 19:00 PM","19:00 PM - 22:OO PM")
+        val adapterT = ArrayAdapter(this, R.layout.item_text, itemTime)
+        dataBinding.timeDropdown.setAdapter(adapterT)
+
         // Booking appointment
+
         dataBinding.btnFinalbook.onSlideCompleteListener = object  : SlideToActView.OnSlideCompleteListener{
             override fun onSlideComplete(view: SlideToActView) {
                 val userName = sharedPreferences.getString("name", "").toString()
@@ -89,14 +116,14 @@ class AppointmentBooking : AppCompatActivity() {
                 val userUid = sharedPreferences.getString("uid", "").toString()
                 val userPrescription = sharedPreferences.getString("prescription", "").toString()
 
+                val rightNow = Calendar.getInstance()
+                val calenderIn24Formate : Int = rightNow.get(Calendar.HOUR_OF_DAY)
+                val firstComeFirstServe = 1 + (0.1 * ((calenderIn24Formate / 10) + 1))
+
                 val date = dataBinding.selectDate.text.toString()
                 val time = dataBinding.timeDropdown.text.toString()
                 val diseases = dataBinding.diseaseDropdown.text.toString()
                 val situation = dataBinding.situationDropdown.text.toString()
-
-                val rightNow = Calendar.getInstance()
-                val calenderIn24Formate : Int = rightNow.get(Calendar.HOUR_OF_DAY)
-                val firstComeFirstServe = 1 + (0.1 * ((calenderIn24Formate / 10) + 1))
 
                 var temp = diseasesValue[diseases]!!
                 temp += conditionValue[situation]!!
@@ -105,11 +132,11 @@ class AppointmentBooking : AppCompatActivity() {
 
                 // Empty hash Map for the Patient
                 val appointmentD : HashMap<String, String> = HashMap()
-                appointmentD["Patient Name"] = userName
+                appointmentD["PatientName"] = userName
                 appointmentD["PatientPhone"] = userPhone
                 appointmentD["Time"] = time
                 appointmentD["Date"] = date
-                appointmentD["Diseases"] = diseases
+                appointmentD["Disease"] = diseases
                 appointmentD["PatientCondition"] = situation
                 appointmentD["Prescription"] = userPrescription
                 appointmentD["TotalPoints"] = totalPoint.toString().trim()
@@ -134,7 +161,6 @@ class AppointmentBooking : AppCompatActivity() {
                 val appointmentDB_Patient = FirebaseDatabase.getInstance().getReference("Users").child(userUid).child("PatientsAppointments").child(date)
                 appointmentDB_Patient.child(doctorUId).setValue(appointmentP)
 
-
                 // vibrate
                 view.bumpVibration = 100
                 val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
@@ -148,21 +174,25 @@ class AppointmentBooking : AppCompatActivity() {
             }
         }
 
-        // diseases list
-        val item : List<String> = mapOfDiseasesList[doctorType]!!
-        val adapter = ArrayAdapter(this, R.layout.item_text, item)
-        dataBinding.diseaseDropdown.setAdapter(adapter)
+    }
 
-        // situation list
-        val situationList = listOf<String>("Severe Pain", "Mild Pain", "No Pain")
-        val adapterS = ArrayAdapter(this, R.layout.item_text, situationList)
-        dataBinding.situationDropdown.setAdapter(adapterS)
+    private val textWatcher = object : TextWatcher{
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        override fun afterTextChanged(p0: Editable?) {checkRequiredField()}
+    }
 
-        // item time
-        val itemTime = listOf<String>("9:00 AM - 11:00 AM","11:00 AM - 13:00 PM", "17:00 PM - 19:00 PM","19:00 PM - 22:OO PM")
-        val adapterT = ArrayAdapter(this, R.layout.item_text, itemTime)
-        dataBinding.timeDropdown.setAdapter(adapterT)
+    private fun checkRequiredField() {
+        val date = dataBinding.selectDate.text.toString()
+        val time = dataBinding.timeDropdown.text.toString()
+        val diseases = dataBinding.diseaseDropdown.text.toString()
+        val situation = dataBinding.situationDropdown.text.toString()
 
+        if (date.isNotEmpty() && time.isNotEmpty() && diseases.isNotEmpty() && situation.isNotEmpty()){
+            dataBinding.btnFinalbook.visibility = View.VISIBLE
+        }else{
+            dataBinding.btnFinalbook.visibility = View.INVISIBLE
+        }
     }
 
     private fun initializeSpecializationWithDiseasesLists() {

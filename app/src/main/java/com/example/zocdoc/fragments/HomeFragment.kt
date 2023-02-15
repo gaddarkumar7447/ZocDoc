@@ -7,12 +7,15 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Vibrator
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.isVisible
@@ -44,6 +47,7 @@ class HomeFragment : Fragment() {
     private lateinit var searchedType : String
 
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var pro : ProgressBar
 
     private lateinit var dataBindingFragment : FragmentHomeBinding
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -55,6 +59,30 @@ class HomeFragment : Fragment() {
         sharedPreferences = requireActivity().getSharedPreferences("UserData", Context.MODE_PRIVATE)
 
         getPreferences()
+
+        /*dataBindingFragment.doctorData.addTextChangedListener(object :TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(p0: Editable?) {
+                searchedData = dataBindingFragment.doctorData.text.toString().trim()
+
+                if (searchedData.isNotEmpty()){
+                    if (Util().removeCountryCode(searchedData) == userPhone || searchedData == userPhone || searchedData == userEmail || isSameName(searchedData, userName)){
+                        Toast.makeText(requireContext(), "Stop searching yourself", Toast.LENGTH_SHORT).show()
+                        dataBindingFragment.cardView.isVisible = false
+                        dataBindingFragment.slider.isVisible = false
+                    }else{
+                        try{
+                            doctorIsPresent()
+                        }catch (e : Exception){
+                            Toast.makeText(requireContext(), "$e", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }else{
+                    Toast.makeText(requireContext(), "Enter doctor's Email/Phone", Toast.LENGTH_SHORT).show()
+                }
+            }
+        })*/
 
         dataBindingFragment.doctorData.setOnEditorActionListener { textView, i, keyEvent ->
             if (i == EditorInfo.IME_ACTION_DONE){
@@ -77,7 +105,6 @@ class HomeFragment : Fragment() {
             }
             false
         }
-
 
         dataBindingFragment.slider.animDuration = 150
         dataBindingFragment.slider.onSlideCompleteListener = object : SlideToActView.OnSlideCompleteListener{
@@ -114,6 +141,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun doctorIsPresent() {
+        dataBindingFragment.progressBarHome.visibility = View.VISIBLE
         db.child("Doctor").addValueEventListener(object : ValueEventListener{
             @SuppressLint("SetTextI18n")
             override fun onDataChange(snapshot : DataSnapshot) {
@@ -140,8 +168,11 @@ class HomeFragment : Fragment() {
                         dataBindingFragment.doctorPhone.text = "Phone : $sPhone"
                         dataBindingFragment.doctorEmail.text = "Email : $sEmail"
                         dataBindingFragment.doctortype.text = "Specialization : $sType"
+
+                        dataBindingFragment.progressBarHome.visibility = View.INVISIBLE
                         return
                     }else{
+                        dataBindingFragment.progressBarHome.visibility = View.INVISIBLE
                         dataBindingFragment.textView3.isVisible = true
                     }
                 }
@@ -179,5 +210,4 @@ class HomeFragment : Fragment() {
             getPreferences()
         }, 1000)
     }
-
 }

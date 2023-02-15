@@ -44,10 +44,8 @@ class AppointmentFragment : Fragment() {
 
         appointmentList = ArrayList()
         patientAppointmentAppointment = PatientAppointmentAdapter(requireContext(), appointmentList)
-
         dataBinding.appointmentRecyclerview.layoutManager = LinearLayoutManager(requireContext())
         dataBinding.appointmentRecyclerview.setHasFixedSize(true)
-
 
         val isDoctor = sharedPreferences.getString("isDoctor", "Not found").toString()
         if (isDoctor == "Doctor"){
@@ -100,8 +98,7 @@ class AppointmentFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(requireActivity(),
-                    error.message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), error.message, Toast.LENGTH_SHORT).show()
             }
         })
 

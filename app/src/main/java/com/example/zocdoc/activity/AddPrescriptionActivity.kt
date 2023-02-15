@@ -10,12 +10,13 @@ import android.graphics.pdf.PdfRenderer
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.withStarted
 import com.example.zocdoc.databinding.ActivityAddPrescriptionBinding
 import com.example.zocdoc.progressbar.ProgressBar
-import com.google.firebase.database.DatabaseReference
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.OnProgressListener
@@ -31,7 +32,7 @@ import com.karumi.dexter.listener.single.PermissionListener
 class AddPrescriptionActivity : AppCompatActivity() {
     private lateinit var dataBinding : ActivityAddPrescriptionBinding
     private lateinit var sharedPreferences: SharedPreferences
-    var dbref : DatabaseReference ?= null
+    //var dbref : DatabaseReference ?= null
     lateinit var fileUri : Uri
     private var select = false
     lateinit var progressBar: ProgressBar
@@ -45,6 +46,9 @@ class AddPrescriptionActivity : AppCompatActivity() {
 
         sharedPreferences = baseContext.getSharedPreferences("UserDate", Context.MODE_PRIVATE)
 
+        val userId1 = sharedPreferences.getString("uid", "").toString()
+        //Log.d("UserId","UserID : $userId1")
+
         dataBinding.cancelfile.setOnClickListener{
             dataBinding.filetitle.text.clear()
             select = false
@@ -54,10 +58,11 @@ class AddPrescriptionActivity : AppCompatActivity() {
             dataBinding.imagebrowse.visibility = View.VISIBLE
         }
 
-        dbref = FirebaseDatabase.getInstance().getReference("Users")
+        //dbref = FirebaseDatabase.getInstance().getReference("Users")
 
         // Browse PDF from the file manager
         dataBinding.imagebrowse.setOnClickListener(View.OnClickListener {
+            dataBinding.uploaded.visibility = View.INVISIBLE
             Dexter.withContext(applicationContext)
                     .withPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE)
                     .withListener(object : PermissionListener{
@@ -122,16 +127,16 @@ class AddPrescriptionActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("SuspiciousIndentation")
     private fun processUpload(fileUri: Uri) {
-        val userId = sharedPreferences.getString("uid", "").toString()
+        val userID = FirebaseAuth.getInstance().currentUser?.uid.toString()
 
         if (dataBinding.filetitle.text.isEmpty()){
             Toast.makeText(this, "Add file title", Toast.LENGTH_SHORT).show()
         }else{
             //progressBar.startDialog()
             val pro = ProgressDialog(this)
-            pro.setTitle("Uploading...")
-            pro.setMessage("Your file ${dataBinding.filetitle.text} uploading..")
+            pro.setTitle("Please wait")
             pro.setCancelable(false)
             pro.show()
 
@@ -142,8 +147,8 @@ class AddPrescriptionActivity : AppCompatActivity() {
                         val editor = sharedPreferences.edit()
                         editor.putString("prescription", uri.toString())
                         editor.apply()
-                        //dbref?.child("Users")?.child(userId)?.child("prescription")?.setValue(uri.toString())
-                        FirebaseDatabase.getInstance().getReference("Users").child(userId).child("prescription").setValue(uri.toString())
+
+                        FirebaseDatabase.getInstance().getReference("Users").child(userID).child("prescription").setValue(uri.toString())
 
                         pro.dismiss()
 
@@ -155,7 +160,8 @@ class AddPrescriptionActivity : AppCompatActivity() {
                     }
             }.addOnProgressListener { upload : UploadTask.TaskSnapshot ->
                 val percentage = (100.0 * upload.bytesTransferred) / upload.totalByteCount
-                pro.setMessage("Uploaded : ${percentage.toInt()}%")
+                //pro.setMessage("Uploaded : ${percentage.toInt()}%")
+                pro.setMessage("Your ${dataBinding.filetitle.text} file is uploading...")
             }.addOnCompleteListener{
                 if (it.isSuccessful){
                     dataBinding.uploaded.visibility = View.VISIBLE

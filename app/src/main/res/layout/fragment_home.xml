@@ -239,8 +239,18 @@
                 app:text="      Slide to book appointment"
                 app:text_color="@color/white" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <ProgressBar
+                android:id="@+id/progressBarHome"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:progressTint="@color/dull_blue"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

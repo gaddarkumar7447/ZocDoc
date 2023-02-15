@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.text.method.DialerKeyListener
 import android.util.Log
+import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -73,9 +74,9 @@ class SettingFragment : Fragment() {
 
     private fun logOut() {
         val alert = AlertDialog.Builder(requireContext())
-        alert.setTitle("LogOut")
-        alert.setIcon(R.drawable.img)
-        alert.setMessage("Do you want to logOut app?")
+        alert.setTitle("Alert")
+        alert.setIcon(R.drawable.img_3)
+        alert.setMessage("\nDo you want to logout?")
         alert.setPositiveButton("Yes", DialogInterface.OnClickListener { dialogInterface, i ->
             val editor = sharedPreferences.edit()
             editor.clear()

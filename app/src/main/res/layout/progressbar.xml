@@ -6,6 +6,7 @@
     <ProgressBar
         android:layout_width="50dp"
         android:rotation="180"
+        android:progressTint="@color/dull_blue"
         android:layout_centerInParent="true"
         android:id="@+id/progressbar1"
         android:layout_height="50dp"/>
@@ -13,6 +14,7 @@
     <ProgressBar
         android:layout_width="30dp"
         android:layout_centerInParent="true"
+        android:progressTint="@color/dull_blue"
         android:id="@+id/progressbar2"
         android:layout_height="30dp"/>
 
