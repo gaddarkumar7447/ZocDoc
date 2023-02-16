@@ -85,6 +85,13 @@ dependencies {
     // Animation Lottie
     implementation "com.airbnb.android:lottie:5.2.0"
 
+    // Graph not working
+    //implementation 'com.github.majorkik:SparkLineLayout:1.0.1'
+
+    // sparkLine Graph
+    /*implementation 'com.robinhood.spark:spark:1.2.0'*/
+    implementation 'com.robinhood.spark:spark:1.2.0'
+
     //QR Code generator
     implementation 'com.google.zxing:core:3.4.1'
     implementation 'com.journeyapps:zxing-android-embedded:4.3.0@aar'

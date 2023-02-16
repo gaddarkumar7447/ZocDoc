@@ -58,10 +58,11 @@ class Home : AppCompatActivity() {
         bottomNavigationView.setupWithNavController(navController)
     }
 
-    @Deprecated("Deprecated in Java", ReplaceWith("finishAffinity()"))
+    // Back press handle
+    /*@Deprecated("Deprecated in Java", ReplaceWith("finishAffinity()"))
     override fun onBackPressed() {
         finishAffinity()
-    }
+    }*/
 
     /*override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (troggle.onOptionsItemSelected(item)) {

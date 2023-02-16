@@ -1,22 +1,518 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
     </data>
 
-    <RelativeLayout
+    <!--<com.robinhood.spark.SparkView
+            android:id="@+id/sparkview"
+            android:layout_marginTop="130dp"
+            android:layout_width="match_parent"
+            android:layout_height="150dp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/sparkview"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10sp"
+            android:id="@+id/numberPut"
+            android:inputType="numberDecimal"
+            android:hint="number"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:id="@+id/b"
+            android:layout_centerInParent="true"
+            android:layout_below="@+id/numberPut"
+            android:text="Button"
+            android:layout_height="wrap_content"/>-->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/background"
         tools:context=".fragments.StatisticFragment">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:textColor="@color/black"
-            android:layout_centerInParent="true"
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Statics" />
+            android:layout_marginTop="40dp"
+            android:gravity="start"
+            android:orientation="vertical"
+            android:paddingLeft="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/book_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/dm_sans_bold"
+                android:text="My Statistics"
+                android:textColor="@color/white"
+                android:textSize="35sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.099"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/loginIllustration" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/dm_sans"
+                android:text="@string/review_your_past_reports"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/signUpHeader"
+                app:layout_constraintTop_toBottomOf="@+id/signUpHeader" />
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="140dp"
+            android:background="@drawable/white_bar"
+            android:paddingTop="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            app:layout_constraintVertical_bias="1.0">
+
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:background="@drawable/cardview_background"
+                        android:backgroundTint="@color/white">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:orientation="vertical"
+                            tools:ignore="RtlHardcoded">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/dm_sans_medium"
+                                    android:text="Blood Pressure"
+                                    android:textSize="17dp"
+                                    android:textColor="@color/black"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/addBloodPressureData"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="40dp"
+                                    style="?android:attr/borderlessButtonStyle"
+                                    android:fontFamily="@font/dm_sans_medium"
+                                    android:text="Add data"
+                                    android:background="@drawable/primary_button"
+                                    android:textAllCaps="false"
+                                    android:textSize="12dp"
+                                    android:textColor="@color/white"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <!--<com.majorik.sparklinelibrary.SparkLineLayout
+                                android:id="@+id/bloodPressure"
+                                android:layout_width="match_parent"
+                                android:layout_height="100dp"
+                                android:layout_marginTop="12dp"
+                                android:background="#ffffff"
+                                app:s_gradient_line="true"
+                                app:s_line_color="@color/light_blue"
+                                app:s_line_second_color="@color/dull_blue"
+                                app:s_line_thickness="4dp" />-->
+                            <com.robinhood.spark.SparkView
+                                android:id="@+id/bloodPressure"
+                                android:background="#ffffff"
+                                android:layout_marginTop="10sp"
+                                android:layout_width="match_parent"
+                                android:layout_height="100dp" />
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp">
+
+                                <TextView
+                                    android:id="@+id/textView4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/dm_sans_medium"
+                                    android:text="Biological Reference: 80-120"
+                                    android:textSize="12dp"
+                                    android:textColor="@color/black"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/bloodPressureRange"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/dm_sans_medium"
+                                    android:text="Min: Loading, Max: Loading"
+                                    android:paddingRight="10dp"
+                                    android:textSize="12dp"
+                                    android:textColor="@color/black"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:layout_marginTop="30dp"
+                        android:background="@drawable/cardview_background"
+                        android:backgroundTint="@color/white">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:orientation="vertical"
+                            tools:ignore="RtlHardcoded">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/dm_sans_medium"
+                                    android:text="Sugar Fasting"
+                                    android:textSize="17dp"
+                                    android:textColor="@color/black"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/addSugarFastingData"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="40dp"
+                                    android:background="@drawable/primary_button"
+                                    android:fontFamily="@font/dm_sans_medium"
+                                    android:text="Add data"
+                                    android:textAllCaps="false"
+                                    android:textSize="12dp"
+                                    android:textColor="@color/white"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <!--<com.majorik.sparklinelibrary.SparkLineLayout
+                                android:id="@+id/sugarFasting"
+                                android:layout_width="match_parent"
+                                android:layout_height="100dp"
+                                android:layout_marginTop="12dp"
+                                android:background="#ffffff"
+                                app:s_gradient_line="true"
+                                app:s_line_color="@color/light_blue"
+                                app:s_line_second_color="@color/dull_blue"
+                                app:s_line_thickness="4dp" />-->
+                            <com.robinhood.spark.SparkView
+                                android:id="@+id/sugarFasting"
+                                android:background="#ffffff"
+                                android:layout_marginTop="10sp"
+                                android:layout_width="match_parent"
+                                android:layout_height="100dp" />
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/dm_sans_medium"
+                                    android:text="Biological Reference: 70-100"
+                                    android:textSize="12dp"
+                                    android:textColor="@color/black"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/sugarFastingRange"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/dm_sans_medium"
+                                    android:text="Min: Loading, Max: Loading"
+                                    android:paddingRight="10dp"
+                                    android:textSize="12dp"
+                                    android:textColor="@color/black"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:layout_marginTop="30dp"
+                        android:background="@drawable/cardview_background"
+                        android:backgroundTint="@color/white">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:orientation="vertical"
+                            tools:ignore="RtlHardcoded">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/dm_sans_medium"
+                                    android:text="Sugar PP"
+                                    android:textSize="17dp"
+                                    android:textColor="@color/black"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/addSugarPPData"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="40dp"
+                                    style="?android:attr/borderlessButtonStyle"
+                                    android:fontFamily="@font/dm_sans_medium"
+                                    android:text="Add data"
+                                    android:background="@drawable/primary_button"
+                                    android:textAllCaps="false"
+                                    android:textSize="12dp"
+                                    android:textColor="@color/white"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <!--<com.majorik.sparklinelibrary.SparkLineLayout
+                                android:id="@+id/sugarPP"
+                                android:layout_width="match_parent"
+                                android:layout_height="100dp"
+                                android:layout_marginTop="12dp"
+                                android:background="#ffffff"
+                                app:s_gradient_line="true"
+                                app:s_line_color="@color/light_blue"
+                                app:s_line_second_color="@color/dull_blue"
+                                app:s_line_thickness="4dp" />-->
+
+                            <com.robinhood.spark.SparkView
+                                android:id="@+id/sugarPP"
+                                android:background="#ffffff"
+                                android:layout_marginTop="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="100dp" />
+
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/dm_sans_medium"
+                                    android:text="Biological Reference: 80-120"
+                                    android:textSize="12dp"
+                                    android:textColor="@color/black"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/sugarPPRange"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/dm_sans_medium"
+                                    android:text="Min: Loading, Max: Loading"
+                                    android:paddingRight="10dp"
+                                    android:textSize="12dp"
+                                    android:textColor="@color/black"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginBottom="100dp"
+                        android:background="@drawable/cardview_background"
+                        android:backgroundTint="@color/white">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:orientation="vertical"
+                            tools:ignore="RtlHardcoded">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/dm_sans_medium"
+                                    android:text="Cholesterol"
+                                    android:textSize="17dp"
+                                    android:textColor="@color/black"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/addCholesterolData"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="40dp"
+                                    android:fontFamily="@font/dm_sans_medium"
+                                    android:text="Add data"
+                                    android:background="@drawable/primary_button"
+                                    style="?android:attr/borderlessButtonStyle"
+                                    android:textAllCaps="false"
+                                    android:textSize="12dp"
+                                    android:textColor="@color/white"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <!--<com.majorik.sparklinelibrary.SparkLineLayout
+                                android:id="@+id/cholesterol"
+                                android:layout_width="match_parent"
+                                android:layout_height="100dp"
+                                android:layout_marginTop="12dp"
+                                android:background="#ffffff"
+                                app:s_gradient_line="true"
+                                app:s_line_color="@color/light_blue"
+                                app:s_line_second_color="@color/dull_blue"
+                                app:s_line_thickness="4dp" />-->
+
+                            <com.robinhood.spark.SparkView
+                                android:id="@+id/cholesterol"
+                                android:background="#ffffff"
+                                android:layout_marginTop="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="100dp" />
+
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/dm_sans_medium"
+                                    android:text="Cholesterol"
+                                    android:textColor="@color/black"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/cholesterolRange"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/dm_sans_medium"
+                                    android:text="Min: Loading, Max: Loading"
+                                    android:paddingRight="10dp"
+                                    android:textColor="@color/black"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+            </ScrollView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
