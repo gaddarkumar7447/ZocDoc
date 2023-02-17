@@ -62,7 +62,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     //Switch
-    /*implementation 'com.github.GwonHyeok:StickySwitch:0.0.16'*/
+    //implementation 'com.github.GwonHyeok:StickySwitch:0.0.16'
 
     implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
     implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
