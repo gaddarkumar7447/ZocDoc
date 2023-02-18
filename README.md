@@ -3,7 +3,7 @@ ZocDoc is a medical android app which deals and solves issues of both patients a
 
 ## Application Install
 
-***You can Install and test latest Medify app from below 👇***
+***You can Install and test latest ZocDoc app from below 👇***
 
 [![ZocDoc](https://img.shields.io/badge/ZocDoc✅-APK-red.svg?style=for-the-badge&logo=android)](https://drive.google.com/file/d/13kE3sCELCoxvPaNxNXjsN7M7WQERLYnu/view?usp=share_link)
 
