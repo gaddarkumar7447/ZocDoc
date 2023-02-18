@@ -5,12 +5,12 @@ ZocDoc is a medical android app which deals and solves issues of both patients a
 
 ***You can Install and test latest Medify app from below 👇***
 
-[![Zoc](https://img.shields.io/badge/Medify✅-APK-red.svg?style=for-the-badge&logo=android)](https://drive.google.com/file/d/13kE3sCELCoxvPaNxNXjsN7M7WQERLYnu/view?usp=share_link)
+[![ZocDoc](https://img.shields.io/badge/ZocDoc✅-APK-red.svg?style=for-the-badge&logo=android)](https://drive.google.com/file/d/13kE3sCELCoxvPaNxNXjsN7M7WQERLYnu/view?usp=share_link)
 
 [Want to try the app](https://appetize.io/app/xtrewomqm4k4kugtyh7v7vpmeq?device=pixel4&osVersion=11.0&scale=75)
 
 # Our Idea 💡
-- Medify is an Android application that not only solves the issue of the patients as users, but also solves the problems of the doctors as well.
+- ZocDoc is an Android application that not only solves the issue of the patients as users, but also solves the problems of the doctors as well.
 
 - The app offers users to book an appointment with the doctor that are registered in the app already.
 
