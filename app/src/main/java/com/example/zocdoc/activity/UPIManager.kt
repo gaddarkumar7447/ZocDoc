@@ -1,20 +1,27 @@
 package com.example.zocdoc.activity
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
 import android.os.Handler
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import com.example.zocdoc.R
@@ -94,6 +101,35 @@ class UPIManager : AppCompatActivity() {
 
         binding.qrPreview.setImageBitmap(generateQrCodeImage(uri.toString()))
 
+        binding.qrPreview.setOnClickListener {
+
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Image save to Gallery", Toast.LENGTH_SHORT).show()
+            }else{
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 1)
+            }
+
+            binding.qrPreview.isDrawingCacheEnabled = true
+            val bitmap = Bitmap.createBitmap(binding.qrPreview.drawingCache)
+            binding.qrPreview.isDrawingCacheEnabled = false
+
+            val filename = "${System.currentTimeMillis()/1000000}Name_${name}_$upiId.jpg"
+
+            val contentValues = ContentValues().apply {
+                put(MediaStore.Images.Media.DISPLAY_NAME, filename)
+                put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
+                put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
+            }
+
+            val resolver = applicationContext.contentResolver
+            val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+
+            uri?.let { imageUri ->
+                resolver.openOutputStream(imageUri)?.use { outputStream ->
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+                }
+            }
+        }
 
         binding.link.text = uri.toString()
 
@@ -142,6 +178,11 @@ class UPIManager : AppCompatActivity() {
             for (y in 0 until width)
                 bmp.setPixel(y, x, if (bitMatrix.get(x, y)) Color.BLACK else Color.WHITE)
 
+        //saveImage(bmp)
         return bmp
+    }
+
+    private fun saveImage(bmp: Bitmap?) {
+
     }
 }

@@ -63,14 +63,14 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
-                android:layout_width="330dp"
+                android:layout_width="345dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="50dp"
-                android:elevation="5dp"
-                app:cardCornerRadius="10dp"
                 android:background="@drawable/cardview_background"
                 android:backgroundTint="@color/white"
+                android:elevation="5dp"
+                app:cardCornerRadius="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.503"

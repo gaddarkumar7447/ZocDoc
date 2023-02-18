@@ -35,7 +35,9 @@ class ProfileActivity : AppCompatActivity() {
         binding.phone.text = "Phone: $phone"
         binding.email.text = "Email: $email"*/
 
-        binding.email.text = "Email: ${FirebaseAuth.getInstance().currentUser?.email}."
+        binding.email.text = "Email: ${FirebaseAuth.getInstance().currentUser?.email}"
+
+        val isDoctor = sharedPreferences.getString("isDoctor", "Not found").toString()
 
         val currentUserId = FirebaseAuth.getInstance().currentUser?.uid.toString()
         FirebaseDatabase.getInstance().reference.child("Users").child(currentUserId).addValueEventListener(object : ValueEventListener{
@@ -48,6 +50,10 @@ class ProfileActivity : AppCompatActivity() {
                     binding.name.text = "Name: $name"
                     binding.age.text = "Age: $age"
                     binding.phone.text = "Phone: $phone"
+
+                    if (isDoctor == "Doctor"){
+                        binding.name.text = "Name: Dr. $name"
+                    }
                 }
             }
 

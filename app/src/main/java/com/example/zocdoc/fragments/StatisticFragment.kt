@@ -298,7 +298,7 @@ class StatisticFragment : Fragment() {
             if (j == i) {
                 finalStats.append(tempString).append("?")
             } else {
-                finalStats.append(splitParts.get(j)).append("?")
+                finalStats.append(splitParts[j]).append("?")
             }
         }
         finalStats.setLength(finalStats.length - 1)

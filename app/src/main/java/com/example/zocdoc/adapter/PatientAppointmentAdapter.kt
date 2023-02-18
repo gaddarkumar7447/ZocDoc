@@ -40,6 +40,10 @@ class PatientAppointmentAdapter(private val context: Context, private val appoin
             mIntent.putExtra("hide", "hide")
             context.startActivity(mIntent)
         }
+        val intent = Intent()
+        intent.putExtra("uid", uid)
+        intent.putExtra("date", uid)
+        intent.putExtra("hide", "hide")
     }
 
     override fun getItemCount(): Int {
