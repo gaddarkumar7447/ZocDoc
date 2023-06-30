@@ -74,4 +74,4 @@ The design we used is minimal as well as clean. People with colorbindness will h
 - Follow the above steps to create account and proceed
 - **Important** (Please remove your googleservices.json before committing changes)
 
-[Credit Goes to](https://github.com/aritra-tech)
+[Credit](https://github.com/aritra-tech)
