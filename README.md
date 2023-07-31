@@ -74,4 +74,4 @@ The design we used is minimal as well as clean. People with colorbindness will h
 - Follow the above steps to create account and proceed
 - **Important** (Please remove your googleservices.json before committing changes)
 
-[Credit](https://github.com/aritra-tech)
+- Credit to [Aritra Das](https://github.com/aritra-tech) and [Binay Shaw](https://github.com/binayshaw7777/) for their exceptional work on [Medify](https://github.com/aritra-tech/Medify). This repository is a clone with additional changes.
